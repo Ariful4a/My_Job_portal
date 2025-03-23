@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import logo from "../assets/logo.webp"
 
 const Header = () => {
 
@@ -15,8 +16,8 @@ const Header = () => {
       </li>
     </>
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="navbar text-white font-bold shadow-sm">
+    <div className="max-w-6xl mx-auto">
+      <div className="navbar text-[#FFFFFF] font-bold shadow-sm">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -43,7 +44,7 @@ const Header = () => {
            {links}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <img className="max-w-14" src={logo} alt="Job logo" />
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
@@ -51,8 +52,8 @@ const Header = () => {
           </ul>
         </div>
         <div className="navbar-end gap-4">
-            <Link className="btn bg-[#ff7e5f] hover:bg-green-500" to='/register'>Register</Link>
-            <Link className="btn bg-green-500 hover:bg-[#ff7e5f]" to='/login'>Login</Link>
+            <Link className="btn bg-[#FF9800] hover:bg-green-500" to='/register'>Register</Link>
+            <Link className="btn bg-green-500 hover:bg-[#E68900]" to='/login'>Login</Link>
         </div>
       </div>
     </div>

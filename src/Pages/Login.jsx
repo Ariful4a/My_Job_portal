@@ -1,9 +1,12 @@
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
+import { Link } from "react-router-dom";
+import Animation1 from '../assets/2.json'
+import Lottie from "lottie-react";
 
 const Login = () => {
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white px-4">
+        <div className="flex items-center gap-28 justify-center min-h-screen bg-gray-900 text-white px-4">
           <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
             <h2 className="text-3xl font-semibold text-center mb-6">Login</h2>
             <form>
@@ -36,10 +39,11 @@ const Login = () => {
                 <FcGoogle className="mr-2 text-2xl" /> Sign in with Google
               </button>
               <p className="text-center mt-4">
-                Don't have an account? <a href="#" className="text-blue-400 hover:underline">Sign Up</a>
+                Don't have an account? <Link className="text-blue-400 hover:underline" to={'/register'}>Sign Up</Link>
               </p>
             </form>
           </div>
+          <Lottie className="w-[400px]" animationData={Animation1}></Lottie>
         </div>
       );
 };
