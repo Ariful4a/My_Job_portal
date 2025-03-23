@@ -1,95 +1,124 @@
-import { useContext, useState } from "react";
-import Animation from '../assets/register.json'
-import Lottie from "lottie-react";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import logo from "../assets/logo.webp";
 import AuthContext from "../Context/AuthContext";
+import UserIconAnimate from "../assets/User2.json";
+import Lottie from "lottie-react";
 
-const Register = () => {
-    const {createUser, updateUserProfile} = useContext(AuthContext);
-    const [error, setError] = useState(null);
+const Header = () => {
+  const { user, logOutUser } = useContext(AuthContext);
 
-  const handleCreateUser = (event)=>{
-    event.preventDefault();
-    const form = event.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    const confirmPassword = form.confirmPassword.value;
-    if(!name ||!email ||!password ||!confirmPassword){
-      alert("All fields are required");
-      return;
-    };
+  const links = (
+    <>
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/jobs">Find Job</NavLink>
+      </li>
+      <li>
+        <NavLink to="/recruiters">Recruiters</NavLink>
+      </li>
+      <li>
+        <NavLink to="/candidates">Candidates</NavLink>
+      </li>
+      <li>
+        <NavLink to="/pages">Pages</NavLink>
+      </li>
+      <li>
+        <NavLink to="/blog">Blog</NavLink>
+      </li>
+      <li>
+        <NavLink to="/contact">Contact</NavLink>
+      </li>
+    </>
+  );
 
-    if(password!==confirmPassword){
-      alert("Passwords do not match");
-      return;
-    };
-    const user = {name, email, password, confirmPassword};
-    console.log(user);
-    createUser(email, password)
-    .then(result =>{
-      console.log(result.user);
-      setError(null);
-      form.reset();
-    })
-    .catch(error =>{
-      setError(error.message)
-    });
+  const handleLogOut = () => {
+    logOutUser();
+  };
 
-  }
-    return (
-        <div className="flex items-center gap-28 py-14 justify-center min-h-screen bg-gray-900 text-white px-4">
-          <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
-            <h2 className="text-3xl font-semibold text-center mb-6">Register</h2>
-            <form onSubmit={handleCreateUser}>
-              <div className="mb-4">
-                <label className="block mb-2">Full Name</label>
-                <input
-                  type="text" name="name"
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500"
-                  placeholder="Full Name"
+  return (
+    <div className="max-w-6xl mx-auto">
+      <div className="navbar text-white font-bold shadow-sm px-4">
+        <div className="navbar-start">
+          <div className="dropdown">
+            <label tabIndex={0} className="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
                 />
-              </div>
-              <div className="mb-4">
-                <label className="block mb-2">Email Address</label>
-                <input
-                  type="email" name="email"
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500"
-                  placeholder="Email Address"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block mb-2">Password</label>
-                <input
-                  type="password" name="password"
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500"
-                  placeholder="Password"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block mb-2">Confirm Password</label>
-                <input
-                  type="password" name="confirmPassword"
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500"
-                  placeholder="Confirm Password"
-                />
-              </div>
-              <button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg transition duration-300">
-                Register
-              </button>
-              <p className="text-center mt-4">
-                Already have an account? <Link className="text-blue-400 hover:underline" to='/login'>Login</Link>
-              </p>
-              {error && <div className="text-red-500 text-center">{error}</div>}
-            </form>
-            <div>
-            </div>
+              </svg>
+            </label>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-black"
+            >
+              {links}
+            </ul>
           </div>
-         <div className="flex text-center items-center -mt-60">
-         <Lottie className="flex text-center" animationData={Animation}></Lottie>
-         </div>
+          <Link to="/">
+            <img className="h-10" src={logo} alt="Job Box Logo" />
+          </Link>
         </div>
-      );
+
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1 flex items-center gap-6">
+            {links}
+          </ul>
+        </div>
+
+        <div className="navbar-end flex items-center gap-4">
+          {user && user?.email ? (
+            <div className="flex items-center gap-2">
+              <div className="relative group">
+                {user?.photoURL ? (
+                  <img
+                    src={user.photoURL}
+                    alt={user.displayName || "User"}
+                    className="w-10 h-10 rounded-full hover:scale-110 transition-transform duration-300"
+                  />
+                ) : (
+                  <div className="w-10 h-10">
+                    <Lottie animationData={UserIconAnimate} loop={true} />
+                  </div>
+                )}
+                {/* Hover করলে ইউজারের নাম দেখাবে */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 bottom-[-30px] bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {user.displayName || "User"}
+                </div>
+              </div>
+
+              <button
+                onClick={handleLogOut}
+                className="btn bg-[#FF9800] hover:bg-green-500 text-white"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <>
+              <Link className="btn bg-[#FF9800] hover:bg-green-500" to="/register">
+                Register
+              </Link>
+              <Link className="btn bg-green-500 hover:bg-[#E68900]" to="/login">
+                Login
+              </Link>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default Register;
+export default Header;
