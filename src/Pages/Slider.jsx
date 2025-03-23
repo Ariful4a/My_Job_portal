@@ -27,7 +27,7 @@ const Slider = () => {
           </div>
           <div className="">
             <motion.h1 animate={{x: 10}} transition={{repeat: Infinity, duration: 5}} className="text-6xl font-bold leading-15">
-              The <motion.span animate= {{color: ['#fb2b02', '#fc036c', '#fc0303', '#032cfc', '#f0fc01 ']}} transition={{duration: 5, repeat: Infinity}} className="text-[#ff0000]">Easiest Way</motion.span> <br /> to Get Your New <br /> Job
+              The <motion.span animate= {{color: ['#fb2b02', '#fc036c', '#fc0303', '#032cfc', '#f0fc01']}} transition={{duration: 5, repeat: Infinity}} className="text-[#ff0000]">Easiest Way</motion.span> <br /> to Get Your New <br /> Job
             </motion.h1>
             <p className="py-6">
               Each month, more than 3 million job seekers turn to <br /> website in
