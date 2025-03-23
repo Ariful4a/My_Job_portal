@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import AuthContext from "../Context/AuthContext";
 
 const Register = () => {
-    const {createUser} = useContext(AuthContext);
+    const {createUser, updateUserProfile} = useContext(AuthContext);
     const [error, setError] = useState(null);
 
   const handleCreateUser = (event)=>{
@@ -19,6 +19,7 @@ const Register = () => {
       alert("All fields are required");
       return;
     };
+
     if(password!==confirmPassword){
       alert("Passwords do not match");
       return;
@@ -28,7 +29,6 @@ const Register = () => {
     createUser(email, password)
     .then(result =>{
       console.log(result.user);
-      alert("User registered successfully!");
       setError(null);
       form.reset();
     })
