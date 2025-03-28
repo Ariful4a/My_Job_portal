@@ -4,6 +4,7 @@ import useAuth from '../Hooks/useAuth';
 
 const AddJob = () => {
   const {user} = useAuth();
+  
 
   const handleSubmit = e => {
     e.preventDefault();
