@@ -1,6 +1,9 @@
 import React from 'react';
+import Swal from 'sweetalert2';
+import useAuth from '../Hooks/useAuth';
 
 const AddJob = () => {
+  const {user} = useAuth();
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -10,7 +13,58 @@ const AddJob = () => {
     const {currency, salaryMin , salaryMax, ...newJob} = initialData;
     console.log(newJob);
     newJob.salaryRange = {currency, salaryMin, salaryMax};
-    console.log(newJob);
+    newJob.responsibilities = newJob.responsibilities.split('\n');
+    newJob.requirements = newJob.requirements.split('\n');
+
+    fetch('http://localhost:5000/jobs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newJob)
+    })
+    .then(res => res.json())
+    .then(data =>{
+        if(data.insertedId) {
+          Swal.fire({
+            title: "Successfully added a new job",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `
+            }
+          });
+              }
+              e.target.reset()
+              
+    })
+    .catch(error => {
+      Swal.fire({
+        title: "Sorry Your Work Failed",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+      });
+    })
+  
   }
 
   return (
@@ -84,23 +138,23 @@ const AddJob = () => {
         </div>
 
         <div>
-          <label className="block font-medium">প্রয়োজনীয়তা (কমা দিয়ে আলাদা করুন):</label>
-          <input type="text" name="requirements" className="w-full p-3 border border-gray-300 rounded-md" required />
+          <label className="block font-medium">প্রয়োজনীয়তা (Put a new line):</label>
+          <textarea className='textarea border-primary' name="requirements" required></textarea>
         </div>
 
         <div>
-          <label className="block font-medium">দায়িত্ব (কমা দিয়ে আলাদা করুন):</label>
-          <input type="text" name="responsibilities" className="w-full p-3 border border-gray-300 rounded-md" required />
+          <label className="block font-medium">দায়িত্ব (Put a new line):</label>
+          <textarea className='textarea border-primary' name="responsibilities" required></textarea>
         </div>
 
         <div>
           <label className="block font-medium">এইচআর নাম:</label>
-          <input type="text" name="hrName" className="w-full p-3 border border-gray-300 rounded-md" required />
+          <input type="text" value={user?.displayName} name="hrName" className="w-full p-3 border border-gray-300 rounded-md" required />
         </div>
 
         <div>
           <label className="block font-medium">এইচআর ইমেইল:</label>
-          <input type="email" name="hrEmail" className="w-full p-3 border border-gray-300 rounded-md" required />
+          <input type="email" value={user?.email} name="hrEmail" className="w-full p-3 border border-gray-300 rounded-md" required />
         </div>
 
         <div>
