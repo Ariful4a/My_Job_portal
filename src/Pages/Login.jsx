@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
-import Animation1 from '../assets/2.json'
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Animation1 from '../assets/3.json'
 import Lottie from "lottie-react";
 import AuthContext from "../Context/AuthContext";
 
@@ -9,6 +9,8 @@ import AuthContext from "../Context/AuthContext";
 const Login = () => {
 const {signInUser} = useContext(AuthContext);
 const [error , setError] = useState();
+const location = useLocation();
+const navigate = useNavigate();
 
   const handaleLogin = e => {
     e.preventDefault();
@@ -22,6 +24,8 @@ const [error , setError] = useState();
       alert("Success");
       setError(null);
       form.reset();
+      navigate(location.state ? location.state : "/");
+
     })
     .catch(error => {
       console.error(error);

@@ -6,7 +6,7 @@ import UserIconAnimate from "../assets/User2.json";
 import Lottie from "lottie-react";
 
 const Header = () => {
-  const { user , logOutUser} = useContext(AuthContext);
+  const { user, logOutUser } = useContext(AuthContext);
 
   const links = (
     <>
@@ -17,25 +17,30 @@ const Header = () => {
         <NavLink to="/jobs">Find Job</NavLink>
       </li>
       <li>
-        <NavLink to="/recruiters">Recruiters</NavLink>
+        <NavLink to="/myAppliClint">My_Appliclint</NavLink>
       </li>
       <li>
         <NavLink to="/candidates">Candidates</NavLink>
       </li>
-      <li>
-        <NavLink to="/pages">Pages</NavLink>
-      </li>
+
       <li>
         <NavLink to="/blog">Blog</NavLink>
       </li>
       <li>
         <NavLink to="/contact">Contact</NavLink>
       </li>
+      <li>
+        {user && user.email === "afkgamingno1@gmail.com" && (
+          <NavLink to="/addJob">Add Jobs</NavLink>
+        )}
+      </li>
     </>
   );
   const handleLogOut = () => {
     logOutUser();
-  }
+    // Redirect to login page after logout
+    window.location.href = "/login";
+  };
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -50,7 +55,12 @@ const Header = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
               </svg>
             </label>
             <ul
@@ -66,7 +76,9 @@ const Header = () => {
         </div>
 
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 flex items-center gap-6">{links}</ul>
+          <ul className="menu menu-horizontal px-1 flex items-center gap-6">
+            {links}
+          </ul>
         </div>
 
         <div className="navbar-end flex items-center gap-4">
@@ -83,11 +95,19 @@ const Header = () => {
                   <Lottie animationData={UserIconAnimate} loop={true} />
                 </div>
               )}
-              <button onClick={handleLogOut} className="btn bg-[#FF9800] hover:bg-green-500 text-white">Logout</button>
+              <button
+                onClick={handleLogOut}
+                className="btn bg-[#FF9800] hover:bg-green-500 text-white"
+              >
+                Logout
+              </button>
             </div>
           ) : (
             <>
-              <Link className="btn bg-[#FF9800] hover:bg-green-500" to="/register">
+              <Link
+                className="btn bg-[#FF9800] hover:bg-green-500"
+                to="/register"
+              >
                 Register
               </Link>
               <Link className="btn bg-green-500 hover:bg-[#E68900]" to="/login">
