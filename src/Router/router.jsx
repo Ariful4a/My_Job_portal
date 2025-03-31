@@ -10,6 +10,9 @@ import MyAppliclint from "../Components/MyAppliclint";
 import AddJob from "../AddJob/AddJob";
 import MyPost from "../AddJob/MyPost";
 import ViwApplications from "../AddJob/ViwApplications";
+import Course_add from "../My_course/Course_add";
+import My_courseCards from "../My_course/My_courseCards";
+import Course_details from "../My_course/Course_details";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +58,19 @@ const router = createBrowserRouter([
           path: '/viewApplications/:jobId',
           element: <PrivateRoute><ViwApplications></ViwApplications></PrivateRoute>,
           loader: ({params})=> fetch(`http://localhost:5000/job-applications/jobs/${params.jobId}`),
+        },
+        {
+          path: '/myCourses',
+          element: <PrivateRoute><Course_add></Course_add></PrivateRoute>
+        },
+        {
+          path: '/myCourseCards',
+          element: <PrivateRoute><My_courseCards></My_courseCards></PrivateRoute>
+        },
+        {
+          path: '/CourseDetails/:id',
+          element: <PrivateRoute><Course_details></Course_details></PrivateRoute>,
+          loader: ({params})=> fetch(`http://localhost:5000/myCourses/${params.id}`)
         }
 
        

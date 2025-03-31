@@ -4,6 +4,7 @@ import HotJobCard from './HotJobCard';
 
 const Hotjobs = () => {
     const [jobs, setJobs]= useState([]);
+    console.log(jobs, 'fdfasdlkfajsdlfajs;dflajskdfl;as');
 
     useEffect(() =>{
         fetch('http://localhost:5000/jobs')

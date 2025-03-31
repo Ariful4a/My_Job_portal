@@ -2,12 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const HotJobCard = ({ job }) => {
+  console.log(job, 'Hi i love you');
+
+  if (!job) return <p>Loading...</p>;
+
   return (
     <div className="bg-white shadow-lg rounded-xl overflow-hidden p-5 border">
       {/* Company Logo & Name */}
       <div className="flex items-center gap-4">
         <img
-          src={job.company_logo}
+          src={job.companyLogo}  // ✅ Fix: Corrected key name
           alt={job.company}
           className="w-12 h-12 rounded-full"
         />
@@ -30,15 +34,15 @@ const HotJobCard = ({ job }) => {
 
       {/* Salary */}
       <p className="text-md font-semibold text-green-600 mt-2">
-        Salary: {job.salaryRange.salaryMin} - {job.salaryRange.salaryMax}{" "}
-        {job.salaryRange.currency.toUpperCase()}
+        Salary: {job.salaryRange?.salaryMin} - {job.salaryRange?.salaryMax}{" "}
+        {job.salaryRange?.currency ? job.salaryRange.currency.toUpperCase() : "N/A"} 
       </p>
 
       {/* Requirements */}
       <div className="mt-3">
         <h3 className="font-semibold">Requirements:</h3>
         <ul className="list-disc ml-5 text-sm text-gray-700">
-          {job.requirements.map((req, index) => (
+          {(job.requirements || []).map((req, index) => (
             <li key={index}>{req}</li>
           ))}
         </ul>
@@ -48,7 +52,7 @@ const HotJobCard = ({ job }) => {
       <div className="mt-3">
         <h3 className="font-semibold">Responsibilities:</h3>
         <ul className="list-disc ml-5 text-sm text-gray-700">
-          {job.responsibilities.map((res, index) => (
+          {(job.responsibilities || []).map((res, index) => (
             <li key={index}>{res}</li>
           ))}
         </ul>

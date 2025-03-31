@@ -24,10 +24,10 @@ const Header = () => {
       </li>
 
       <li>
-        <NavLink to="/blog">Blog</NavLink>
+        <NavLink to="/myCourseCards">My_course</NavLink>
       </li>
       <li>
-        <NavLink to="/contact">Contact</NavLink>
+        <NavLink to="/myCourses">My Course</NavLink>
       </li>
       <li>
         {user && user.email === "afkgamingno1@gmail.com" && (
