@@ -4,7 +4,18 @@ import useAuth from '../Hooks/useAuth';
 
 const Course_add = () => {
   const { user } = useAuth();
-  
+
+  const ownerEmail = "afkgamingno1@gmail.com"; // ✅ এখানে তোমার ইমেইল বসাও
+
+  // ✅ চেক করা হচ্ছে, ইউজার কি owner?
+  if (user?.email !== ownerEmail) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-2xl font-bold text-red-600">🚫 Access Denied! Only Admin can access this page.</h1>
+      </div>
+    );
+  }
+
   const handleSubmit = e => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -22,20 +33,8 @@ const Course_add = () => {
         if (data.insertedId) {
           Swal.fire({
             title: "Successfully added a new course",
-            showClass: {
-              popup: `
-                animate__animated
-                animate__fadeInUp
-                animate__faster
-              `
-            },
-            hideClass: {
-              popup: `
-                animate__animated
-                animate__fadeOutDown
-                animate__faster
-              `
-            }
+            icon: "success",
+            timer: 3000
           });
         }
         e.target.reset();
@@ -43,23 +42,10 @@ const Course_add = () => {
     .catch(error => {
       Swal.fire({
         title: "Sorry, your work failed",
-        showClass: {
-          popup: `
-            animate__animated
-            animate__fadeInUp
-            animate__faster
-          `
-        },
-        hideClass: {
-          popup: `
-            animate__animated
-            animate__fadeOutDown
-            animate__faster
-          `
-        }
+        icon: "error",
       });
-    })
-  }
+    });
+  };
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-gray-100 rounded-lg">
@@ -88,6 +74,17 @@ const Course_add = () => {
         <div>
           <label className="block font-medium">Description Thumbnail URL:</label>
           <input type="text" name="descriptionUrl" className="w-full p-3 border border-gray-300 rounded-md" placeholder="Optional" />
+        </div>
+
+        {/* ✅ Gender Field (Dropdown) */}
+        <div>
+          <label className="block font-medium">Gender:</label>
+          <select name="gender" className="w-full p-3 border border-gray-300 rounded-md" required>
+            <option value="">Select Gender</option>
+            <option value="male">👨 Male</option>
+            <option value="female">👩 Female</option>
+            <option value="other">🌍 Other</option>
+          </select>
         </div>
 
         <button type="submit" className="w-full py-3 mt-6 bg-green-500 text-white rounded-md hover:bg-green-400">পোস্ট করুন</button>

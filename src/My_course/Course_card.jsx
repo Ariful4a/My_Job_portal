@@ -18,10 +18,10 @@ const CourseCard = ({ course }) => {
       }}
     >
       {/* Background Animation */}
-      <div className="absolute inset-0 z-0 opacity-50">
+      <div className="absolute inset-0 z-0">
         <Lottie animationData={Animation5} className="w-full h-full mt-28" />
       </div>
-      <div className="absolute inset-0 z-0 opacity-30">
+      <div className="absolute inset-0 z-0 opacity-40">
         {" "}
         {/* এখানে opacity কমানো হয়েছে */}
         <Lottie animationData={Animation6} className="w-full h-full mt-28" />

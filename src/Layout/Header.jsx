@@ -14,20 +14,22 @@ const Header = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="myPostJob">My Post</NavLink>
+        {user && user.email === "afkgamingno1@gmail.com" && (
+          <NavLink to="myPostJob">My Post</NavLink>
+        )}
       </li>
       <li>
-        <NavLink to="/myAppliClint">My_Appliclint</NavLink>
+        {user && user.email === "afkgamingno1@gmail.com" && (
+          <NavLink to="/myAppliClint">My_Appliclint</NavLink>
+        )}
       </li>
       <li>
-        <NavLink to="/candidates">Candidates</NavLink>
-      </li>
-
-      <li>
-        <NavLink to="/myCourseCards">My_course</NavLink>
+        <NavLink to="/myCourseCards">All_course</NavLink>
       </li>
       <li>
-        <NavLink to="/myCourses">My Course</NavLink>
+        {user && user.email === "afkgamingno1@gmail.com" && (
+          <NavLink to="/myCourses">My Course Add</NavLink>
+        )}
       </li>
       <li>
         {user && user.email === "afkgamingno1@gmail.com" && (
@@ -43,7 +45,7 @@ const Header = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-auto z-20">
       <div className="navbar text-white font-bold shadow-sm px-4">
         <div className="navbar-start">
           <div className="dropdown">
